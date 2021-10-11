@@ -237,7 +237,7 @@
             border.style.backgroundImage = 'url("border2.png")'
             button.style.marginLeft = "-10px";
 
-            counter.innerHTML = washingSecond;
+            counter.innerHTML = washingSecond<10?'0' + washingSecond :washingSecond;
             button.style.display = "none"
             setTimeout(seeResults, 4000);
             if (washingSecond < 20) {
