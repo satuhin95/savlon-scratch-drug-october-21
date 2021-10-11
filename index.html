@@ -1,0 +1,385 @@
+
+<html>
+
+<head>
+    <title>Savlon Global Handwashing Day Campaign 2021</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no">
+    <meta property="og:url" content="https://savlonhandwash.web.app" />
+    <meta property="og:type" content="article" />
+    <meta property="og:" content="Savlon Global Handwashing Day Campaign 2021" />
+    <meta property="og:description" content="Our Future is at Hand – Let's Move Forward Together" />
+    <meta property="og:image"
+        content="https://firebasestorage.googleapis.com/v0/b/savlonwash.appspot.com/o/fb.png?alt=media&token=05ae0c01-871b-413c-93dc-426d48e80320" />
+</head>
+
+<body id="body" >
+    <div class="wrapper" id="wrapper">
+    <div class="logo" >
+        <img  src="logo.png"  />
+    </div>
+     <div id="container" class="container">
+        <div>
+           
+            <div class="text absolute " >
+                <img id="text" src="text2.png"  />
+            </div>
+            <div id="losetext2" class="losetext2 hidden">
+                <img id="text" src="losetext2.png"  />
+        
+            </div>
+            <div id="progressbar" class="progressbar hidden">
+                
+                    <div id="circle" class="circle ">
+        
+                    </div>
+                
+            </div>
+            <div id="text5" class="text5 hidden"
+                >
+                <img src="text5.png"  />
+        
+        
+            </div>
+        
+            <div id="shareButton" class="shareButton hidden">
+                <a href="https://www.facebook.com/sharer/sharer.php?u=https://savlonhandwash.web.app"><img src="share_button.png" /></a>
+        
+        
+            </div>
+            <div id="wintext2" class="wintext2 absolute hidden"
+                >
+                <img src="wintext2.png" s />
+        
+        
+            </div>
+        </div>
+        <div class="content" id="content">
+             
+            <img id="cursor" draggable="true" class="handwash hidden" src="cursor.png" 
+             />
+    
+            <div class="border" id="border">
+                <h1 id="counter" > </h1>
+                <div class="box" id="box">
+    
+                    <canvas id="canvas">
+    
+    
+                    </canvas>
+    
+    
+    
+                </div>
+    
+            </div>
+    
+        </div>
+    
+        <div class="button-holder" id="button-holder">
+    
+            <a onclick="clickAction()"><img id="button" class="button" src="start_button.png"
+                     /></a>
+        </div>
+     </div>
+    
+</div>
+</body>
+<link rel="stylesheet" type="text/css" href="style.css">
+<script src="https://www.gstatic.com/firebasejs/9.1.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.1.1/firebase-firestore-compat.js"></script>
+
+<script>
+    // Import the functions you need from the SDKs you need
+
+    // TODO: Add SDKs for Firebase products that you want to use
+    // https://firebase.google.com/docs/web/setup#available-libraries
+
+    // Your web app's Firebase configuration
+    // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+    var ip;
+    const firebaseConfig = {
+        apiKey: "AIzaSyBduzKXuxQMEQUuZ45dsrz5Eo5H-Q7CIW8",
+        authDomain: "savlonwash.firebaseapp.com",
+        projectId: "savlonwash",
+        storageBucket: "savlonwash.appspot.com",
+        messagingSenderId: "976969393668",
+        appId: "1:976969393668:web:7731a6c1ef0f4d7a4b3751",
+        measurementId: "G-5FJ5GSZTHQ"
+    };
+
+    // Initialize Firebase
+    const firebaseApp = firebase.initializeApp(firebaseConfig);
+    const db = firebaseApp.firestore();
+   
+
+
+    function text(url) {
+        return fetch(url).then(res => res.text());
+    }
+   
+    text('https://www.cloudflare.com/cdn-cgi/trace').then(data => {
+        let ipRegex = /[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}/
+        ip = data.match(ipRegex)[0];
+
+
+
+    });
+    var list = [];
+    var locked = true;
+    var washingSecond = 0;
+    var percentage = 0;
+    var washed_position = [];
+    var dirt_position = ["x0y7","x1y7","x1y6","x2y8","x2y9","x2y10","x2y7","x3y9","x3y10","x3y11","x4y11","x4y12","x4y13","x4y14","x4y15","x5y15","x5y16","x5y17","x6y17","x6y18","x7y18","x7y17","x7y16","x7y15","x7y14","x8y16","x8y15","x9y16","x9y17","x9y15","x6y15","x5y12","x6y12","x6y13","x6y14","x6y11","x6y10","x5y11","x5y13","x5y10","x5y9","x5y8","x4y8","x4y7","x4y6","x4y5","x4y4","x4y3","x5y5","x5y6","x5y7","x6y9","x7y10","x7y9","x7y8","x7y7","x6y7","x6y6","x6y5","x6y4","x6y3","x7y4","x7y5","x7y6","x8y9","x8y10","x9y9","x9y8","x9y7","x9y6","x9y5","x9y4","x10y4","x10y3","x10y5","x10y6","x10y7","x9y10","x9y11","x9y12","x8y12","x8y13","x8y14","x7y12","x9y13","x10y12","x10y11","x10y13","x11y12","x11y11","x12y11","x12y10","x13y10","x13y9","x14y9","x14y10","x13y11","x12y12","x12y13","x11y13","x11y14","x11y15","x10y15"];
+        // var dirt_position = ["x0y7","x1y7","x1y6","x2y8","x2y9","x2y10","x2y7","x3y9","x3y10","x3y11","x4y11","x4y12","x4y13","x4y14","x4y15","x5y15","x5y16","x5y17","x6y17","x6y18","x7y18","x7y17","x7y16","x7y15","x7y14","x8y16","x8y15","x9y16","x9y17","x9y15","x6y15","x5y12","x6y12","x6y13","x6y14","x6y11","x6y10","x5y11","x5y13","x5y10","x5y9","x5y8","x4y8","x4y7","x4y6","x4y5","x4y4","x4y3","x5y5","x5y6","x5y7","x6y9","x7y10","x7y9","x7y8","x7y7","x6y7","x6y6","x6y5","x6y4","x6y3","x7y4","x7y5","x7y6","x8y9","x8y10","x9y9","x9y8","x9y7","x9y6","x9y5","x9y4","x10y4","x10y3","x10y5","x10y6","x10y7","x9y10","x9y11","x9y12","x8y12","x8y13","x8y14","x7y12","x9y13"];
+    var url = 'dirty_hand.png';
+    var canvas = document.getElementById('canvas');
+    var text = document.getElementById('text');
+    var box = document.getElementById('box');
+    var wrapper = document.getElementById('wrapper');
+    var body = document.getElementById('body');
+    var button = document.getElementById('button');
+    var border = document.getElementById('border');
+    var cursor = document.getElementById('cursor');
+    var counter = document.getElementById('counter');
+    var content = document.getElementById('content');
+    var loseText2 = document.getElementById('loseText2');
+    var text5 = document.getElementById('text5');
+    var progressbar = document.getElementById('progressbar');
+    var circle = document.getElementById('circle');
+    var shareButton = document.getElementById('shareButton');
+    var buttonHolder = document.getElementById('button-holder');
+    var wintext2 = document.getElementById('wintext2');
+    var ctx = canvas.getContext('2d');
+    var img = new Image();
+    img.src = url;
+    var startingTime;
+    var endingTime;
+    var dragStarted = false;
+
+
+
+    function seeResults() {
+        content.style.display = "none";
+        progressbar.style.display = "flex"
+        text5.style.display = "flex"
+        shareButton.style.display = "flex"
+        var timePercentage = (washingSecond / 20) * 100
+        var washingPercentage = percentage;
+
+        var totalPercentage = washingPercentage + timePercentage;
+        var progress = (totalPercentage / 200) * 220;
+
+       
+
+        
+
+    //     db.collection("savlonUsers").add(
+    //     {
+    //         ip: ip,
+    //         washedPercentage:percentage,
+    //         timeTaken:washingSecond,
+    //         createdAt: new Date()
+    //     }
+    // )
+    //     .then((docRef) => {
+
+    //         console.log("Document written with ID: ");
+    //     })
+    //     .catch((error) => {
+    //         console.error("Error adding document: ", error);
+    //     });
+
+
+
+
+
+           wrapper.style.backgroundImage="none"
+        if (washingSecond > 19 && percentage > 30) {
+            wintext2.style.display = 'flex'
+            text.src = "wintext1.png"
+            circle.style.marginLeft = "126"
+
+        } else {
+            text.src = "losetext1.png"
+            losetext2.style.display = "flex"
+            text5.style.marginTop = '36px'
+            shareButton.style.marginTop = '34px'
+            progressbar.style.marginTop ='28px'
+            text.style.marginLeft = '-22px'
+            circle.style.marginLeft = `30`
+        }
+    }
+
+    function clickAction() {
+
+
+    
+
+        if (locked) {
+            cursor.style.display="block"
+            box.style.filter = "blur(0px)";
+            buttonHolder.style.marginLeft='16px';
+            border.style.marginLeft='0px'
+            locked = false;
+            button.src = "submit_button.png"
+            
+            startingTime = Date.now();
+
+        } else {
+            endingTime = Date.now();
+            washingSecond += parseInt((Date.now() - startingTime) / 1000);
+            text.src = "text4.png";
+            text.style.marginLeft = '-25px'
+            cursor.style.display = "none"
+            box.style.display = "none"
+            // border.style.marginTop = "20px"
+            // border.style.marginLeft = "40px"
+            border.style.backgroundImage = 'url("border2.png")'
+            button.style.marginLeft = "-10px";
+
+            counter.innerHTML = washingSecond;
+            button.style.display = "none"
+            setTimeout(seeResults, 4000);
+            if (washingSecond < 20) {
+
+            } else {
+
+            }
+        }
+
+
+    }
+    function dragStart(e) {
+
+        if (!locked) {
+            setTimeout(function() {
+                cursor.classList.add('hide');
+  }, 1);
+            
+            if (!dragStarted) {
+
+
+                text.src = 'text3.png'
+                text.style.marginLeft = '-20px'
+            }
+
+            dragStarted = true;
+            isPress = true;
+            var bcr = e.target.getBoundingClientRect();
+            var x = e.clientX - bcr.x - 150;
+            var y = e.clientY - bcr.y;
+
+
+            old = { x: x - 150, y: y };
+        }
+    }
+
+
+
+    ;
+    function dragging(e) {
+        if (!locked) {
+            if (isPress) {
+
+                var bcr = e.target.getBoundingClientRect();
+                var x = e.clientX - bcr.x - 150;
+                var y = e.clientY - bcr.y + 20;
+                // var x = e.offsetX-150;
+                // var y = e.offsetY;
+
+
+
+                if (!washed_position.includes(`x${Math.floor(x / 10)}y${Math.floor(y / 10)}`)) {
+
+                    // var str='';
+
+                    // list.forEach(item=>{
+                    //     str=`${str},"${item}"`
+                    // });
+                    // list.push(`x${Math.floor(x / 10)}y${Math.floor(y / 10)}`);
+
+                    // console.log(str);
+
+
+
+                    washed_position.push(`x${Math.floor(x / 10)}y${Math.floor(y / 10)}`);
+                }
+
+
+                var current_wash = washed_position.filter(n => dirt_position.includes(n));
+                percentage = (current_wash.length / dirt_position.length) * 100
+
+                // console.log(dirt_position.length)
+                // console.log(current_wash.length)
+                console.log(percentage)
+
+                // document.getElementById("label").innerHTML = `${Math.round(percentage)}%`;
+
+
+
+                ctx.globalCompositeOperation = 'destination-out';
+
+                ctx.beginPath();
+                ctx.arc(x, y, 16, 0, 0);
+                ctx.fill();
+
+                ctx.lineWidth = 8;
+                ctx.beginPath();
+                ctx.moveTo(old.x, old.y);
+                ctx.lineTo(x, y);
+                ctx.stroke();
+
+                old = { x: x, y: y };
+
+            }
+
+        }
+    }
+    function dragEnd(e) {
+        if (!locked) {
+            setTimeout(function() {
+                cursor.classList.remove('hide');
+          }, 1);
+          
+            isPress = false;
+        
+
+        }
+
+    }
+
+    let items = document.querySelectorAll(' .handwash');
+    items.forEach(function (item) {
+        item.addEventListener('dragstart', dragStart);
+        item.addEventListener('drag', dragging);
+        item.addEventListener('dragend', dragEnd);
+    });
+
+    img.onload = function () {
+
+
+        canvas.width = 63;
+        canvas.height = 94;
+        ctx.drawImage(img, 0, 0, 63, 94);
+    };
+
+    var isPress = false;
+    var old = null;
+
+    // function submit() {
+
+    //     var current_wash = washed_position.filter(n => dirt_position.includes(n));
+    //     var percentage = current_wash.length / dirt_position.length
+    // }
+
+
+</script>
+
+
+<script src="drag.js"></script>
+
+
+
+</body>
+
+</html>
