@@ -8,8 +8,7 @@
     <meta property="og:type" content="article" />
     <meta property="og:" content="Savlon Global Handwashing Day Campaign 2021" />
     <meta property="og:description" content="Our Future is at Hand – Let's Move Forward Together" />
-    <meta property="og:image"
-        content="https://firebasestorage.googleapis.com/v0/b/savlonwash.appspot.com/o/fb.png?alt=media&token=05ae0c01-871b-413c-93dc-426d48e80320" />
+ 
 </head>
 
 <body id="body" >
@@ -89,41 +88,7 @@
 <script src="https://www.gstatic.com/firebasejs/9.1.1/firebase-firestore-compat.js"></script>
 
 <script>
-    // Import the functions you need from the SDKs you need
-
-    // TODO: Add SDKs for Firebase products that you want to use
-    // https://firebase.google.com/docs/web/setup#available-libraries
-
-    // Your web app's Firebase configuration
-    // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-    var ip;
-    const firebaseConfig = {
-        apiKey: "AIzaSyBduzKXuxQMEQUuZ45dsrz5Eo5H-Q7CIW8",
-        authDomain: "savlonwash.firebaseapp.com",
-        projectId: "savlonwash",
-        storageBucket: "savlonwash.appspot.com",
-        messagingSenderId: "976969393668",
-        appId: "1:976969393668:web:7731a6c1ef0f4d7a4b3751",
-        measurementId: "G-5FJ5GSZTHQ"
-    };
-
-    // Initialize Firebase
-    const firebaseApp = firebase.initializeApp(firebaseConfig);
-    const db = firebaseApp.firestore();
    
-
-
-    function text(url) {
-        return fetch(url).then(res => res.text());
-    }
-   
-    text('https://www.cloudflare.com/cdn-cgi/trace').then(data => {
-        let ipRegex = /[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}/
-        ip = data.match(ipRegex)[0];
-
-
-
-    });
     var list = [];
     var locked = true;
     var washingSecond = 0;
@@ -168,28 +133,6 @@
 
         var totalPercentage = washingPercentage + timePercentage;
         var progress = (totalPercentage / 200) * 220;
-
-       
-
-        
-
-    //     db.collection("savlonUsers").add(
-    //     {
-    //         ip: ip,
-    //         washedPercentage:percentage,
-    //         timeTaken:washingSecond,
-    //         createdAt: new Date()
-    //     }
-    // )
-    //     .then((docRef) => {
-
-    //         console.log("Document written with ID: ");
-    //     })
-    //     .catch((error) => {
-    //         console.error("Error adding document: ", error);
-    //     });
-
-
 
 
 
@@ -284,21 +227,9 @@
                 var bcr = e.target.getBoundingClientRect();
                 var x = e.clientX - bcr.x - 150;
                 var y = e.clientY - bcr.y + 20;
-                // var x = e.offsetX-150;
-                // var y = e.offsetY;
-
 
 
                 if (!washed_position.includes(`x${Math.floor(x / 10)}y${Math.floor(y / 10)}`)) {
-
-                    // var str='';
-
-                    // list.forEach(item=>{
-                    //     str=`${str},"${item}"`
-                    // });
-                    // list.push(`x${Math.floor(x / 10)}y${Math.floor(y / 10)}`);
-
-                    // console.log(str);
 
 
 
@@ -309,12 +240,7 @@
                 var current_wash = washed_position.filter(n => dirt_position.includes(n));
                 percentage = (current_wash.length / dirt_position.length) * 100
 
-                // console.log(dirt_position.length)
-                // console.log(current_wash.length)
-                console.log(percentage)
-
-                // document.getElementById("label").innerHTML = `${Math.round(percentage)}%`;
-
+//                 console.log(percentage)
 
 
                 ctx.globalCompositeOperation = 'destination-out';
